@@ -7,7 +7,7 @@ DigitalOut led3(LED3);
 void led2_thread() {
 	while(true) {
 		led2 = !led2;
-		wait(0.3);
+		wait(0.1);
 	}
 }
 
