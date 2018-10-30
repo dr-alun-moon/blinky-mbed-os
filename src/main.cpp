@@ -1,8 +1,11 @@
 #include <mbed.h>
+#include <C12832.h>
 
-DigitalOut led1(LED1);
-DigitalOut led2(LED2);
-DigitalOut led3(LED3);
+DigitalOut led1(LED1,1);
+DigitalOut led2(LED2,1);
+DigitalOut led3(LED3,1);
+
+C12832 lcd(D11, D13, D12, D7, D10);
 
 void led2_thread() {
 	while(true) {
@@ -18,12 +21,29 @@ void led3_thread() {
 	}
 }
 
+void prt(const char *s, int n){
+	lcd.locate(0,0);
+	lcd.printf(s,n);
+}
+
+EventQueue q;
+
 Thread thread2;
 Thread thread3;
 int main() {
-	thread2.start(led2_thread);
+	int n;
+
+	lcd.cls();
+	lcd.locate(0 , 0);
+	q.call_every(1000, prt, "this %d", n);
+	lcd.puts("hello");
+
+
+	//thread2.start(led2_thread);
 	thread3.start(led3_thread);
+	//q.dispatch();
 	while(true) {
+		n++;
 		led1 = !led1;
 		wait(0.7);
 	}
