@@ -24,6 +24,7 @@ void led3_thread() {
 void prt(const char *s, int n){
 	lcd.locate(0,0);
 	lcd.printf(s,n);
+	led1 = !led1;
 }
 
 EventQueue q;
@@ -41,11 +42,11 @@ int main() {
 
 	//thread2.start(led2_thread);
 	thread3.start(led3_thread);
-	//q.dispatch();
-	while(true) {
-		n++;
-		led1 = !led1;
-		wait(0.7);
-	}
+q.dispatch();
+///	while(true) {
+///		n++;
+///		led1 = !led1;
+///		wait(0.7);
+///	}
 }
 
