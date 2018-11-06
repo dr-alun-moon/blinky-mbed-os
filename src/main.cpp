@@ -34,19 +34,11 @@ Thread thread3;
 int main() {
 	int n;
 
-	lcd.cls();
-	lcd.locate(0 , 0);
-	q.call_every(1000, prt, "this %d", n);
-	lcd.puts("hello");
 
 
-	//thread2.start(led2_thread);
+	thread2.start(led2_thread);
 	thread3.start(led3_thread);
-q.dispatch();
-///	while(true) {
-///		n++;
-///		led1 = !led1;
-///		wait(0.7);
-///	}
+	while(true) {
+	}
 }
 
